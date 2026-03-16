@@ -1,0 +1,34 @@
+{
+  "clients": [
+    {
+      "name": "Coca-Cola",
+      "slug": "coca-cola",
+      "logo": "clients/coca-cola/logo.png",
+      "thumbnail": "clients/coca-cola/thumbnail.png"
+    },
+    {
+      "name": "Fastrack",
+      "slug": "fastrack",
+      "logo": "clients/fastrack/logo.png",
+      "thumbnail": "clients/fastrack/thumbnail.png",
+      "metadata": {
+        "client": "Tripster by Fastrack",
+        "why": "To create a cool campaign shoot",
+        "description": "Tripster by Fastback is for the modern traveller. We brought it to life through travel journals, souvenirs, and ticket stubs, creating a dreamy sequence with a song that stays with you.",
+        "whatWeDid": "Linkboard is a bold, fun Framer template for creatives who want a simple but eye-catching way to share their online presence. It features flexible modules for links, projects, and testimonials, and easy customisation of images, colours, and type to suit any personal brand."
+      }
+    },
+    {
+      "name": "Bharat-Benz",
+      "slug": "bharat-benz",
+      "logo": "clients/bharat-benz/logo.png",
+      "thumbnail": "clients/bharat-benz/thumbnail.png"
+    },
+    {
+      "name": "Ampere",
+      "slug": "ampere",
+      "logo": "clients/ampere/logo.png",
+      "thumbnail": "clients/ampere/thumbnail.png"
+    }
+  ]
+}

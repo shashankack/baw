@@ -1,42 +1,91 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Manrope:wght@200..800&display=swap");
 
 * {
-  box-sizing: border-box;
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+body::-webkit-scrollbar {
+  display: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+.wrapper {
+  min-height: 100vh;
+  margin: 0 30px;
+  border-inline: 1px solid #1563ff;
+}
+
+@media (max-width: 600px) {
+  .wrapper {
+    margin: 0;
+    border-inline: none;
   }
+}
+
+/* ── Animated hamburger ─────────────────────────────── */
+.icon-menu {
+  --gap: 5px;
+  --height-bar: 2px;
+  --pos-y-bar-one: 0;
+  --pos-y-bar-three: 0;
+  --scale-bar: 1;
+  --rotate-bar-one: 0;
+  --rotate-bar-three: 0;
+  width: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  cursor: pointer;
+  position: relative;
+}
+
+.bar {
+  position: relative;
+  height: var(--height-bar);
+  width: 100%;
+  border-radius: 0.5rem;
+  background-color: #1563ff;
+}
+
+.bar--1 {
+  top: var(--pos-y-bar-one);
+  transform: rotate(var(--rotate-bar-one));
+  transition:
+    top 200ms 100ms,
+    transform 100ms;
+}
+
+.bar--2 {
+  transform: scaleX(var(--scale-bar));
+  transition: transform 150ms 100ms;
+}
+
+.bar--3 {
+  bottom: var(--pos-y-bar-three);
+  transform: rotate(var(--rotate-bar-three));
+  transition:
+    bottom 200ms 100ms,
+    transform 100ms;
+}
+
+.icon-menu.is-open > .bar--1 {
+  top: calc(var(--gap) + var(--height-bar));
+  transform: rotate(45deg);
+  transition:
+    top 200ms,
+    transform 200ms 100ms;
+}
+
+.icon-menu.is-open > .bar--2 {
+  transform: scaleX(0);
+  transition: transform 150ms;
+}
+
+.icon-menu.is-open > .bar--3 {
+  bottom: calc(var(--gap) + var(--height-bar));
+  transform: rotate(-45deg);
+  transition:
+    bottom 200ms,
+    transform 200ms 100ms;
 }
