@@ -54,7 +54,7 @@ const WorksDetailContent = ({ client }: WorksDetailContentProps) => {
       });
     } else if (mw && typeof mw === "object") {
       const key = client.category?.[0] || "general";
-      map[key] = { ...mw, gallery: client.media?.gallery ?? [] };
+      map[key] = { ...(mw as Record<string, unknown>) };
     }
     return map;
   }, [client]);

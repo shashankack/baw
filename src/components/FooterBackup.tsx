@@ -10,6 +10,12 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 
 const Footer = () => {
+  const sliderItems = clients.clients.map((client) => ({
+    name: client.name,
+    slug: client.slug,
+    logo: client.media.logo,
+  }));
+
   const quickLinks = [
     [
       { name: "WORK", slug: "work" },
@@ -49,7 +55,7 @@ const Footer = () => {
           people and companies in both design and production.
         </Typography>
         <InteractiveSlider
-          items={clients.clients}
+          items={sliderItems}
           speed={10}
           logoHeight={{ xs: 100, md: 120 }}
           logoMaxWidth={{ xs: 100, md: 120 }}
