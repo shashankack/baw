@@ -38,6 +38,14 @@ const theme = createTheme({
     h2: {
       fontFamily: "Manrope, Arial, sans-serif",
     },
+    h6: {
+      fontFamily: "Manrope, Arial, sans-serif",
+      fontWeight: 600,
+      textAlign: "justify",
+      wordSpacing: "0.01em",
+      letterSpacing: "0.01px",
+      lineHeight: 1.3,
+    },
     body1: {
       fontFamily: "Geist Mono, monospace",
     },

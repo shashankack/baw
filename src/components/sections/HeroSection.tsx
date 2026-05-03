@@ -37,37 +37,63 @@ const HeroSection = () => {
   }, []);
 
   useEffect(() => {
-    // Scroll-triggered animations — set up immediately (fire on scroll, not on load)
-    scrollFromBottom(heroContainerRef.current, { start: "top 70%" });
-    scrollSplitTextBlur(heroTextRef.current, {
+    const scrollTweens = [
+      scrollFromBottom(heroContainerRef.current, { start: "top 70%" }),
+      scrollFromLeft(heroArrowRef.current, {
+        start: "top 70%",
+        distance: 60,
+        duration: 0.9,
+      }),
+    ];
+
+    const heroTextSplit = scrollSplitTextBlur(heroTextRef.current, {
       stagger: 0.018,
       duration: 0.6,
       distance: 12,
       start: "top 70%",
     });
-    scrollFromLeft(heroArrowRef.current, {
-      start: "top 70%",
-      distance: 60,
-      duration: 0.9,
-    });
 
-    // Intro animations — wait for navbar to signal it has started revealing
-    const startIntroAnimations = () => {
-      // Video slides up from below
+    // Scroll-triggered animations — set up immediately (fire on scroll, not on load)
+    const introTweens = [
       gsap.to(videoRef.current, {
         opacity: 1,
         y: 0,
         duration: 1,
         ease: "power3.out",
-      });
+      }),
+      gsap.to(yearRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: "power3.out",
+        delay: 0.25,
+      }),
+      gsap.to(heartRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: "power3.out",
+        delay: 0.35,
+      }),
+      gsap.to(buttonRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: "power3.out",
+        delay: 0.35,
+      }),
+    ];
 
-      // "BAW-STUDIO" — split blur reveal (delayed slightly after video)
-      const studioCall = gsap.delayedCall(0.15, () => {
-        gsap.set(studioRef.current, { opacity: 1 });
-        const split = new SplitType(studioRef.current as HTMLElement, {
-          types: "chars",
-        });
-        gsap.from(split.chars, {
+    let studioSplit: SplitType | null = null;
+    let madeWithSplit: SplitType | null = null;
+
+    const studioCall = gsap.delayedCall(0.15, () => {
+      gsap.set(studioRef.current, { opacity: 1 });
+      studioSplit = new SplitType(studioRef.current as HTMLElement, {
+        types: "chars",
+      });
+      introTweens.push(
+        gsap.from(studioSplit.chars, {
           opacity: 0,
           y: 10,
           filter: "blur(6px)",
@@ -75,34 +101,17 @@ const HeroSection = () => {
           stagger: 0.025,
           ease: "power2.out",
           clearProps: "filter",
-        });
-      });
+        }),
+      );
+    });
 
-      // Year range slides up
-      gsap.to(yearRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: "power3.out",
-        delay: 0.25,
+    const madeWithCall = gsap.delayedCall(0.35, () => {
+      gsap.set(madeWithRef.current, { opacity: 1 });
+      madeWithSplit = new SplitType(madeWithRef.current as HTMLElement, {
+        types: "chars",
       });
-
-      // Heart icon slides up
-      gsap.to(heartRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: "power3.out",
-        delay: 0.35,
-      });
-
-      // "Made with love" — split blur reveal
-      const madeWithCall = gsap.delayedCall(0.35, () => {
-        gsap.set(madeWithRef.current, { opacity: 1 });
-        const split = new SplitType(madeWithRef.current as HTMLElement, {
-          types: "chars",
-        });
-        gsap.from(split.chars, {
+      introTweens.push(
+        gsap.from(madeWithSplit.chars, {
           opacity: 0,
           y: 10,
           filter: "blur(6px)",
@@ -110,43 +119,48 @@ const HeroSection = () => {
           stagger: 0.018,
           ease: "power2.out",
           clearProps: "filter",
-        });
-      });
-
-      // CTA button slides up
-      gsap.to(buttonRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: "power3.out",
-        delay: 0.35,
-      });
-
-      return [studioCall, madeWithCall];
-    };
-
-    let delayedCalls: gsap.core.Tween[] = [];
-
-    if ((window as Window & { __navbarReady?: boolean }).__navbarReady) {
-      delayedCalls = startIntroAnimations() ?? [];
-    } else {
-      const onNavbarReady = () => {
-        delayedCalls = startIntroAnimations() ?? [];
-      };
-      window.addEventListener("navbar:ready", onNavbarReady, { once: true });
-      return () => {
-        window.removeEventListener("navbar:ready", onNavbarReady);
-        delayedCalls.forEach((dc) => dc.kill());
-      };
-    }
+        }),
+      );
+    });
 
     return () => {
-      delayedCalls.forEach((dc) => dc.kill());
+      studioCall.kill();
+      madeWithCall.kill();
+
+      scrollTweens.forEach((tween) => {
+        tween.scrollTrigger?.kill();
+        tween.revert?.();
+        tween.kill();
+      });
+
+      introTweens.forEach((tween) => {
+        tween.revert?.();
+        tween.kill();
+      });
+
+      heroTextSplit?.revert();
+      studioSplit?.revert();
+      madeWithSplit?.revert();
+
+      gsap.set(
+        [
+          videoRef.current,
+          studioRef.current,
+          yearRef.current,
+          heartRef.current,
+          madeWithRef.current,
+          buttonRef.current,
+          heroContainerRef.current,
+          heroArrowRef.current,
+          heroTextRef.current,
+        ].filter(Boolean),
+        { clearProps: "opacity,transform,filter" },
+      );
     };
   }, []);
 
   return (
-    <Stack>
+    <Stack overflow="hidden">
       {/* Top */}
       <Box
         sx={{
@@ -281,7 +295,7 @@ const HeroSection = () => {
               text="View our work"
               variant="blurred"
               component="a"
-              href="/our-works"
+              href="/works"
               endIcon={
                 <ArrowUpwardRoundedIcon
                   sx={{

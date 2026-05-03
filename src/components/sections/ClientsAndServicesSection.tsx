@@ -3,7 +3,10 @@
 import { useEffect, useRef } from "react";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import ArrowUpwardRoundedIcon from "@mui/icons-material/ArrowUpwardRounded";
+import { usePathname } from "next/navigation";
+import gsap from "gsap";
 import {
+  refreshScrollAnimations,
   scrollFromLeft,
   scrollFromBottom,
   scrollSplitTextBlur,
@@ -15,7 +18,7 @@ interface ServiceLinkProps {
   /** Display label */
   name: string;
   /** href will be `/${slug}` */
-  slug: string;
+  slug?: string;
   /** Font size for the label — default matches section defaults */
   fontSize?:
     | string
@@ -37,27 +40,31 @@ export function ServiceLink({
   arrowRestRotation = "-90deg",
   arrowHoverRotation = "400deg",
 }: ServiceLinkProps) {
+  const hasSlug = Boolean(slug);
+
   return (
     <Box
-      component="a"
-      href={`/${slug}`}
+      component={hasSlug ? "a" : "div"}
+      href={hasSlug ? `/${slug}` : undefined}
       sx={{
         display: "flex",
         flexDirection: "column",
         textDecoration: "none",
-        cursor: "pointer",
+        cursor: hasSlug ? "pointer" : "default",
         py: 0.6,
-        "&:hover .svc-line::after": {
-          transform: "scaleX(1)",
-          transformOrigin: "left center",
-        },
-        "&:hover .svc-arrow": {
-          transform: `rotate(${arrowHoverRotation})`,
-          opacity: 1,
-        },
-        "&:hover .svc-label": {
-          opacity: 1,
-        },
+        ...(hasSlug && {
+          "&:hover .svc-line::after": {
+            transform: "scaleX(1)",
+            transformOrigin: "left center",
+          },
+          "&:hover .svc-arrow": {
+            transform: `rotate(${arrowHoverRotation})`,
+            opacity: 1,
+          },
+          "&:hover .svc-label": {
+            opacity: 1,
+          },
+        }),
       }}
     >
       {/* Name + Arrow row */}
@@ -84,7 +91,9 @@ export function ServiceLink({
             fontSize: "1.2rem",
             color: "primary.main",
             transform: `rotate(${arrowRestRotation})`,
-            transition: "transform 0.3s ease, opacity 0.3s ease",
+            transition: hasSlug
+              ? "transform 0.3s ease, opacity 0.3s ease"
+              : "none",
             flexShrink: 0,
           }}
         />
@@ -122,6 +131,7 @@ export function ServiceLink({
 // ── Section ───────────────────────────────────────────────────────────────────
 
 const ClientsAndServicesSection = () => {
+  const pathname = usePathname();
   const services = [
     { name: "Brand Identity Design", slug: "brand-identity-design" },
     { name: "Web Design & Development", slug: "web-design-development" },
@@ -138,29 +148,68 @@ const ClientsAndServicesSection = () => {
 
   useEffect(() => {
     const trigger = sectionRef.current;
+    const animatedElements = [
+      clientsLabelRef.current,
+      servicesLabelRef.current,
+      ...serviceItemRefs.current,
+    ].filter(Boolean) as HTMLElement[];
 
-    scrollFromLeft(clientsLabelRef.current, {
-      trigger,
-      start: "top 85%",
-      duration: 0.8,
-    });
+    if (animatedElements.length) {
+      gsap.set(animatedElements, { clearProps: "opacity,transform,filter" });
+    }
 
-    scrollFromLeft(servicesLabelRef.current, {
-      trigger,
-      start: "top 75%",
-      duration: 0.8,
-    });
+    const tweens: Array<{
+      kill: () => void;
+      revert?: () => void;
+      scrollTrigger?: { kill: () => void };
+    }> = [];
+
+    if (clientsLabelRef.current) {
+      tweens.push(
+        scrollFromLeft(clientsLabelRef.current, {
+          trigger,
+          start: "top 85%",
+          duration: 0.8,
+        }),
+      );
+    }
+
+    if (servicesLabelRef.current) {
+      tweens.push(
+        scrollFromLeft(servicesLabelRef.current, {
+          trigger,
+          start: "top 75%",
+          duration: 0.8,
+        }),
+      );
+    }
 
     serviceItemRefs.current.forEach((el, i) => {
-      scrollFromBottom(el, {
-        trigger,
-        start: "top 78%",
-        duration: 0.7,
-        delay: i * 0.07,
-        distance: 30,
-      });
+      if (!el) return;
+
+      tweens.push(
+        scrollFromBottom(el, {
+          trigger,
+          start: "top 78%",
+          duration: 0.7,
+          delay: i * 0.07,
+          distance: 30,
+        }),
+      );
     });
-  }, []);
+
+    requestAnimationFrame(() => {
+      refreshScrollAnimations();
+    });
+
+    return () => {
+      tweens.forEach((tween) => {
+        tween.scrollTrigger?.kill();
+        tween.revert?.();
+        tween.kill();
+      });
+    };
+  }, [pathname]);
 
   return (
     <Stack

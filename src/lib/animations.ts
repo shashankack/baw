@@ -6,6 +6,24 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+const splitInstanceMap = new WeakMap<HTMLElement, SplitType>();
+const splitTweenMap = new WeakMap<HTMLElement, gsap.core.Tween>();
+
+const cleanupSplitAnimation = (target: HTMLElement) => {
+  const existingTween = splitTweenMap.get(target);
+  if (existingTween) {
+    existingTween.scrollTrigger?.kill();
+    existingTween.kill();
+    splitTweenMap.delete(target);
+  }
+
+  const existingSplit = splitInstanceMap.get(target);
+  if (existingSplit) {
+    existingSplit.revert();
+    splitInstanceMap.delete(target);
+  }
+};
+
 // ─── Shared props ────────────────────────────────────────────────────────────
 
 export interface AnimationProps {
@@ -29,6 +47,12 @@ export interface ScrollAnimationProps extends AnimationProps {
   /** Show ScrollTrigger markers for debugging */
   markers?: boolean;
 }
+
+/** Force ScrollTrigger to recalculate positions after route/layout changes. */
+export const refreshScrollAnimations = () => {
+  if (typeof window === "undefined") return;
+  ScrollTrigger.refresh();
+};
 
 // ─── Base animations ─────────────────────────────────────────────────────────
 
@@ -112,6 +136,7 @@ export const scrollFadeIn = (
       trigger: (props.trigger ?? (target as Element)) as gsap.DOMTarget,
       start: props.start ?? "top 88%",
       markers: props.markers,
+      invalidateOnRefresh: true,
     },
   });
 
@@ -131,6 +156,7 @@ export const scrollFromBottom = (
       trigger: (props.trigger ?? (target as Element)) as gsap.DOMTarget,
       start: props.start ?? "top 88%",
       markers: props.markers,
+      invalidateOnRefresh: true,
     },
   });
 
@@ -150,6 +176,7 @@ export const scrollFromTop = (
       trigger: (props.trigger ?? (target as Element)) as gsap.DOMTarget,
       start: props.start ?? "top 88%",
       markers: props.markers,
+      invalidateOnRefresh: true,
     },
   });
 
@@ -169,6 +196,7 @@ export const scrollFromLeft = (
       trigger: (props.trigger ?? (target as Element)) as gsap.DOMTarget,
       start: props.start ?? "top 88%",
       markers: props.markers,
+      invalidateOnRefresh: true,
     },
   });
 
@@ -188,6 +216,7 @@ export const scrollFromRight = (
       trigger: (props.trigger ?? (target as Element)) as gsap.DOMTarget,
       start: props.start ?? "top 88%",
       markers: props.markers,
+      invalidateOnRefresh: true,
     },
   });
 
@@ -201,9 +230,11 @@ export const scrollSplitTextBlur = (
 ): SplitType | null => {
   if (!target) return null;
 
+  cleanupSplitAnimation(target);
+
   const split = new SplitType(target, { types: "chars" });
 
-  gsap.from(split.chars, {
+  const tween = gsap.from(split.chars, {
     opacity: 0,
     y: props.distance ?? 10,
     filter: "blur(6px)",
@@ -216,8 +247,12 @@ export const scrollSplitTextBlur = (
       trigger: props.trigger ? (props.trigger as gsap.DOMTarget) : target,
       start: props.start ?? "top 88%",
       markers: props.markers,
+      invalidateOnRefresh: true,
     },
   });
+
+  splitInstanceMap.set(target, split);
+  splitTweenMap.set(target, tween);
 
   return split;
 };
@@ -236,9 +271,11 @@ export const splitTextBlur = (
 ): SplitType | null => {
   if (!target) return null;
 
+  cleanupSplitAnimation(target);
+
   const split = new SplitType(target, { types: "chars" });
 
-  gsap.from(split.chars, {
+  const tween = gsap.from(split.chars, {
     opacity: 0,
     y: props.distance ?? 10,
     filter: "blur(6px)",
@@ -248,6 +285,9 @@ export const splitTextBlur = (
     ease: props.ease ?? "power2.out",
     clearProps: "filter", // clean up the filter after animation
   });
+
+  splitInstanceMap.set(target, split);
+  splitTweenMap.set(target, tween);
 
   return split;
 };

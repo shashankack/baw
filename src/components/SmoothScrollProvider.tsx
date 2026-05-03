@@ -3,6 +3,7 @@
 import Lenis from "lenis";
 import { createContext, useContext, useEffect, useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const LenisContext = createContext<Lenis | null>(null);
 
@@ -25,13 +26,26 @@ export default function SmoothScrollProvider({
 
     lenisRef.current = lenis;
 
-    // Integrate with GSAP ticker for frame-perfect updates
-    gsap.ticker.add((time) => {
+    const syncScrollTrigger = () => {
+      ScrollTrigger.update();
+    };
+    lenis.on("scroll", syncScrollTrigger);
+
+    const tickerCallback = (time: number) => {
       lenis.raf(time * 1000);
-    });
+    };
+
+    // Integrate with GSAP ticker for frame-perfect updates
+    gsap.ticker.add(tickerCallback);
     gsap.ticker.lagSmoothing(0);
 
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+
     return () => {
+      gsap.ticker.remove(tickerCallback);
+      lenis.off("scroll", syncScrollTrigger);
       lenis.destroy();
       lenisRef.current = null;
     };

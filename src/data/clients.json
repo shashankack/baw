@@ -1,34 +1,843 @@
 {
   "clients": [
     {
-      "name": "Coca-Cola",
-      "slug": "coca-cola",
-      "logo": "clients/coca-cola/logo.png",
-      "thumbnail": "clients/coca-cola/thumbnail.png"
-    },
-    {
+      "id": 1,
       "name": "Fastrack",
       "slug": "fastrack",
-      "logo": "clients/fastrack/logo.png",
-      "thumbnail": "clients/fastrack/thumbnail.png",
+      "category": ["content-creation"],
+      "media": {
+        "logo": "clients/fastrack/logo.png",
+        "thumbnail": "clients/fastrack/thumbnail.png"
+      },
       "metadata": {
         "client": "Tripster by Fastrack",
         "why": "To create a cool campaign shoot",
         "description": "Tripster by Fastback is for the modern traveller. We brought it to life through travel journals, souvenirs, and ticket stubs, creating a dreamy sequence with a song that stays with you.",
-        "whatWeDid": "Linkboard is a bold, fun Framer template for creatives who want a simple but eye-catching way to share their online presence. It features flexible modules for links, projects, and testimonials, and easy customisation of images, colours, and type to suit any personal brand."
+        "whatWeDid": [
+          {
+            "content-creation": {
+              "concept": "Linkboard is a bold, fun Framer template for creatives who want a simple but eye-catching way to share their online presence. It features flexible modules for links, projects, and testimonials, and easy customisation of images, colours, and type to suit any personal brand.",
+              "works": [
+                "Art Direction",
+                "Graphic Design",
+                "Photography",
+                "Campaingn Shoot",
+                "Promotional"
+              ],
+              "gallery": [
+                "clients/fastrack/image1.png",
+                "clients/fastrack/image2.png",
+                "clients/fastrack/image3.png",
+                "clients/fastrack/image4.png",
+                "clients/fastrack/image5.png",
+                "clients/fastrack/image6.png"
+              ]
+            }
+          }
+        ]
       }
     },
     {
+      "id": 2,
       "name": "Bharat-Benz",
       "slug": "bharat-benz",
-      "logo": "clients/bharat-benz/logo.png",
-      "thumbnail": "clients/bharat-benz/thumbnail.png"
+      "category": ["content-creation"],
+      "media": {
+        "logo": "clients/bharat-benz/logo.png",
+        "thumbnail": "clients/bharat-benz/thumbnail.png"
+      },
+      "metadata": {
+        "client": "Bharat Benz",
+        "why": "Calendar Imagery for Bharat Benz",
+        "description": "To create a powerful visual campaign that captures the strength, versatility, and spirit of Bharat Benz — not just as a vehicle maker, but as a symbol of engineered performance, industrial confidence, and human stories on the road.",
+        "whatWeDid": [
+          {
+            "content-creation": {
+              "concept": "BharatBenz powers movement across industries. We brought this to life through cinematic visuals that highlight the machines in action, the environments they’re built for, and the confidence they represent.",
+              "works": [
+                "Art Direction",
+                "Graphic Design",
+                "Photography",
+                "Campaingn Shoot",
+                "Promotional"
+              ],
+              "gallery": [
+                "clients/bharat-benz/image1.png",
+                "clients/bharat-benz/image2.png",
+                "clients/bharat-benz/image3.png",
+                "clients/bharat-benz/image4.png",
+                "clients/bharat-benz/image5.png",
+                "clients/bharat-benz/image6.png"
+              ]
+            }
+          }
+        ]
+      }
     },
     {
+      "id": 3,
+      "name": "ID Fresh Food",
+      "slug": "id-fresh-food",
+      "category": ["content-creation"],
+      "media": {
+        "logo": "clients/id-fresh-food/logo.png",
+        "thumbnail": "clients/id-fresh-food/thumbnail.png"
+      },
+      "metadata": {
+        "client": "ID Fresh Food",
+        "why": "Campaign Imagery for ID Fresh Food",
+        "description": "To create engaging visuals that showcase ID Fresh Food’s ready-to-use products in a fresh, modern, and appealing way.",
+        "whatWeDid": [
+          {
+            "content-creation": {
+              "concept": "We crafted bold, appetising visuals that highlight the product, its convenience, and everyday relevance. The imagery focuses on freshness, simplicity, and making traditional favourites accessible to everyone.",
+              "works": [
+                "Art Direction",
+                "Graphic Design",
+                "Photography",
+                "Campaingn Shoot",
+                "Promotional"
+              ],
+              "gallery": [
+                "clients/id-fresh-food/image1.png",
+                "clients/id-fresh-food/image2.png",
+                "clients/id-fresh-food/image3.png",
+                "clients/id-fresh-food/image4.png",
+                "clients/id-fresh-food/image5.png",
+                "clients/id-fresh-food/image6.png"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 4,
       "name": "Ampere",
       "slug": "ampere",
-      "logo": "clients/ampere/logo.png",
-      "thumbnail": "clients/ampere/thumbnail.png"
+      "category": ["content-creation"],
+      "media": {
+        "logo": "clients/ampere/logo.png",
+        "thumbnail": "clients/ampere/thumbnail.png"
+      },
+      "metadata": {
+        "client": "Ampere",
+        "why": "Campaign Imagery for Ampere",
+        "description": "To create a strong visual campaign that captures Project One’s identity, energy, and attitude — building a cohesive look that feels bold, modern, and instantly recognisable across every touchpoint.",
+        "whatWeDid": [
+          {
+            "content-creation": {
+              "concept": "To create a high-energy campaign that positions Ampere as a smart, stylish, and everyday-ready electric mobility brand — highlighting performance, design, and the freedom of effortless city rides.",
+              "works": [
+                "Art Direction",
+                "Graphic Design",
+                "Photography",
+                "Campaingn Shoot",
+                "Iconography"
+              ],
+              "gallery": [
+                "clients/ampere/image1.png",
+                "clients/ampere/image2.png",
+                "clients/ampere/image3.png",
+                "clients/ampere/image4.png",
+                "clients/ampere/image5.png",
+                "clients/ampere/image6.png"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "name": "Moral Code",
+      "slug": "moral-code",
+      "category": ["content-creation"],
+      "media": {
+        "logo": "clients/moral-code/logo.png",
+        "thumbnail": "clients/moral-code/thumbnail.png"
+      },
+      "metadata": {
+        "client": "Moral Code",
+        "why": "Campaign Imagery for Moral Code",
+        "description": "To create a striking visual identity that reflects Moral Code’s bold creative essence — turning ideas into visuals that speak with clarity, attitude, and purpose across campaigns.",
+        "whatWeDid": [
+          {
+            "content-creation": {
+              "concept": "We developed a clean, graphic visual language that showcases the brand’s personality and narrative. The imagery highlights core expressions, distinct style, and visual consistency — delivering a memorable look for digital and campaign use.",
+              "works": [
+                "Art Direction",
+                "Graphic Design",
+                "Photography",
+                "Campaingn Shoot",
+                "Iconography"
+              ],
+              "gallery": [
+                "clients/moral-code/image1.png",
+                "clients/moral-code/image2.png",
+                "clients/moral-code/image3.png",
+                "clients/moral-code/image4.png",
+                "clients/moral-code/image5.png"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "name": "Switch Mobility",
+      "slug": "switch-mobility",
+      "category": ["content-creation"],
+      "media": {
+        "logo": "clients/switch-mobility/logo.png",
+        "thumbnail": "clients/switch-mobility/thumbnail.webp"
+      },
+      "metadata": {
+        "client": "Switch Mobility",
+        "why": "Campaign Imagery for Switch Mobility",
+        "description": "To create a powerful visual campaign that positions Switch Mobility as the future of electric transport — combining innovation, sustainability, and modern design into a bold visual narrative.",
+        "whatWeDid": [
+          {
+            "content-creation": {
+              "concept": "We created clean, high-impact visuals that showcase the vehicles with focus on form, scale, and engineering. The imagery highlights the brand’s progressive identity and reinforces its role in shaping next-generation mobility.",
+              "works": [
+                "Art Direction",
+                "Graphic Design",
+                "Photography",
+                "Campaingn Shoot",
+                "Iconography"
+              ],
+              "gallery": [
+                "clients/switch-mobility/image1.png",
+                "clients/switch-mobility/image2.png",
+                "clients/switch-mobility/image3.png",
+                "clients/switch-mobility/image4.png"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "name": "Aukera",
+      "slug": "aukera",
+      "category": ["content-creation"],
+      "media": {
+        "logo": "clients/aukera/logo.png",
+        "thumbnail": "clients/aukera/thumbnail.png"
+      },
+      "metadata": {
+        "client": "Aukera",
+        "why": "Website Imagery ",
+        "description": "To create a bold visual campaign that brings Refraction’s creative essence to life — transforming the concept into a striking visual identity that feels contemporary, engaging, and distinct across touchpoints.",
+        "whatWeDid": [
+          {
+            "content-creation": {
+              "concept": "We developed a crisp, expressive visual language that highlights the brand’s conceptual depth and dynamic energy. The imagery focuses on form, color, and structured compositions — delivering a memorable look for digital and campaign communication.",
+              "works": [
+                "Art Direction",
+                "Graphic Design",
+                "Photography",
+                "Campaingn Shoot",
+                "Iconography"
+              ],
+              "gallery": [
+                "clients/aukera/image1.png",
+                "clients/aukera/image2.png",
+                "clients/aukera/image3.png",
+                "clients/aukera/image4.png",
+                "clients/aukera/image5.png",
+                "clients/aukera/image6.webp",
+                "clients/aukera/image7.webp",
+                "clients/aukera/image8.webp"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 8,
+      "name": "Titan SF Rush",
+      "slug": "titan-sf-rush",
+      "category": ["content-creation"],
+      "media": {
+        "logo": "clients/titan-sf-rush/logo.png",
+        "thumbnail": "clients/titan-sf-rush/thumbnail.png"
+      },
+      "metadata": {
+        "client": "Titan SF Rush",
+        "why": "Product Use Case Imagery ",
+        "description": "To create a bold visual campaign that brings Refraction’s creative essence to life — transforming the concept into a striking visual identity that feels contemporary, engaging, and distinct across touchpoints.",
+        "whatWeDid": [
+          {
+            "content-creation": {
+              "concept": "We developed a crisp, expressive visual language that highlights the brand’s conceptual depth and dynamic energy. The imagery focuses on form, color, and structured compositions — delivering a memorable look for digital and campaign communication.",
+              "works": [
+                "Art Direction",
+                "Graphic Design",
+                "Photography",
+                "Campaingn Shoot",
+                "Iconography"
+              ],
+              "gallery": [
+                "clients/titan-sf-rush/image1.png",
+                "clients/titan-sf-rush/image2.png",
+                "clients/titan-sf-rush/image3.png",
+                "clients/titan-sf-rush/image4.png",
+                "clients/titan-sf-rush/image5.png"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 9,
+      "name": "Umi Matcha",
+      "slug": "umi-matcha",
+      "category": ["web-design-and-development", "packaging-design"],
+      "media": {
+        "logo": "clients/umi-matcha/logo.webp",
+        "thumbnail": "clients/umi-matcha/thumbnail.png"
+      },
+      "metadata": {
+        "client": "Umi Matcha",
+        "why": "Matcha Branding, Web Design & Packaging Design",
+        "description": "We built a brand that turns matcha from a product into a daily ritual — grounded in Japanese origin, designed for modern life. A system that feels calm, precise, and quietly premium across every touchpoint. ",
+        "whatWeDid": [
+          {
+            "web-design-and-development": {
+              "concept": "We built a minimal, precise visual language rooted in balance and clarity. Every element is intentional focusing on form, color, and restraint to reflect matcha’s calm, ritual-driven nature.",
+              "works": [
+                "Art Direction",
+                "Brand Identity",
+                "Visual System",
+                "Iconography",
+                "Packaging Design",
+                "Web Design & Development"
+              ],
+              "gallery": [
+                "clients/umi-matcha/image1.png",
+                "clients/umi-matcha/image2.png",
+                "clients/umi-matcha/image3.png",
+                "clients/umi-matcha/image4.png",
+                "clients/umi-matcha/image5.png"
+              ]
+            }
+          },
+          {
+            "packaging-design": {
+              "concept": "We developed a structured packaging system focused on readability and product focus. Each pack highlights the ingredient clearly, supported by simple layouts, consistent typography, and subtle background elements to differentiate categories.",
+              "works": [
+                "Packaging Design",
+                "Label System",
+                "Visual System",
+                "Product Visualisation",
+                "Print Ready Artwork"
+              ],
+              "gallery": [
+                "clients/umi-matcha/image6.png",
+                "clients/umi-matcha/image7.png",
+                "clients/umi-matcha/image8.png",
+                "clients/umi-matcha/image9.png"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "name": "Inheal Art",
+      "slug": "inheal-art",
+      "category": ["branding", "web-design-and-development"],
+      "media": {
+        "logo": "clients/inheal-art/logo.png",
+        "thumbnail": "clients/inheal-art/thumbnail.png"
+      },
+      "metadata": {
+        "client": "Inheal Art",
+        "why": "Branding & Web Design",
+        "description": "We built a brand that positions art as a tool for inner clarity, not just expression. A visual identity that feels introspective, fluid, and quietly grounding.",
+        "whatWeDid": [
+          {
+            "branding": {
+              "concept": "We developed a soft, expressive visual language rooted in flow and emotion. Every element is designed to feel organic, using form, movement, and negative space to reflect the process of healing through creation.",
+              "works": [
+                "Brand Identity",
+                "Web Design & Development",
+                "Visual System",
+                "Iconography",
+                "Color Strategy"
+              ],
+              "gallery": [
+                "clients/inheal-art/image1.png",
+                "clients/inheal-art/image2.png",
+                "clients/inheal-art/image3.png",
+                "clients/inheal-art/image4.png",
+                "clients/inheal-art/image5.png",
+                "clients/inheal-art/image6.png"
+              ]
+            }
+          },
+          {
+            "web-design-and-development": {
+              "concept": "We developed a soft, expressive visual language rooted in flow and emotion. Every element is designed to feel organic, using form, movement, and negative space to reflect the process of healing through creation.",
+              "works": [
+                "Brand Identity",
+                "Web Design & Development",
+                "Visual System",
+                "Iconography",
+                "Color Strategy"
+              ],
+              "gallery": [
+                "clients/inheal-art/image1.png",
+                "clients/inheal-art/image2.png",
+                "clients/inheal-art/image3.png",
+                "clients/inheal-art/image4.png",
+                "clients/inheal-art/image5.png",
+                "clients/inheal-art/image6.png"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 11,
+      "name": "Kafka",
+      "slug": "kafka",
+      "category": ["branding"],
+      "media": {
+        "logo": "clients/kafka/logo.png",
+        "thumbnail": "clients/kafka/thumbnail.png"
+      },
+      "metadata": {
+        "client": "Kafka",
+        "why": "Restaurant Branding",
+        "description": "We built a brand that reflects Kafka’s distinct, modern dining experience. A visual identity that feels bold, refined, and culturally rooted.",
+        "whatWeDid": [
+          {
+            "branding": {
+              "concept": "We developed a structured visual language focused on contrast and clarity. Every element is designed to feel intentional, using typography, layout, and tone to create a strong and memorable presence.",
+              "works": [
+                "Brand Identity",
+                "Logo & Mark System",
+                "Visual System",
+                "Iconography",
+                "Color Strategy"
+              ],
+              "gallery": [
+                "clients/kafka/image1.png",
+                "clients/kafka/image2.png",
+                "clients/kafka/image3.png",
+                "clients/kafka/image4.png",
+                "clients/kafka/image5.png",
+                "clients/kafka/image6.png"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 12,
+      "name": "Brahma Brews",
+      "slug": "brahma-brews",
+      "category": ["branding"],
+      "media": {
+        "logo": "clients/brahma/logo.webp",
+        "thumbnail": "clients/brahma/thumbnail.webp"
+      },
+      "metadata": {
+        "client": "Brahma Brews",
+        "why": "Restaurant Branding",
+        "description": "We built a brand that reflects Brahma Brews’ distinct, modern dining experience. A visual identity that feels bold, refined, and culturally rooted.",
+        "whatWeDid": [
+          {
+            "branding": {
+              "concept": "We developed a structured visual language focused on contrast and clarity. Every element is designed to feel intentional, using typography, layout, and tone to create a strong and memorable presence.",
+              "works": [
+                "Brand Identity",
+                "Logo & Mark System",
+                "Visual System",
+                "Iconography",
+                "Color Strategy"
+              ],
+              "gallery": [
+                "clients/brahma/image1.webp",
+                "clients/brahma/image2.webp",
+                "clients/brahma/image3.webp"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 13,
+      "name": "Evermore",
+      "slug": "evermore",
+      "category": ["branding", "web-design-and-development"],
+      "media": {
+        "logo": "clients/evermore/logo.png",
+        "thumbnail": "clients/evermore/thumbnail.png"
+      },
+      "metadata": {
+        "client": "Evermore",
+        "why": "Jewelry Branding",
+        "description": "We built a brand that positions men’s jewellery as an everyday essential, not an accessory.A visual identity that feels minimal, confident, and quietly premium.",
+        "whatWeDid": [
+          {
+            "branding": {
+              "concept": "We developed a refined visual language focused on precision and restraint. Every element is designed to feel intentional, using form, material cues, and negative space to create a strong and timeless presence.",
+              "works": [
+                "Brand Identity",
+                "Web Design & Development",
+                "Logo & Mark System",
+                "Typography System",
+                "Iconography",
+                "Color Strategy"
+              ],
+              "gallery": [
+                "clients/evermore/image1.png",
+                "clients/evermore/image2.png",
+                "clients/evermore/image3.png",
+                "clients/evermore/image4.png",
+                "clients/evermore/image5.png",
+                "clients/evermore/image6.png"
+              ]
+            }
+          },
+          {
+            "web-design-and-development": {
+              "concept": "We developed a refined visual language focused on precision and restraint. Every element is designed to feel intentional, using form, material cues, and negative space to create a strong and timeless presence.",
+              "works": [
+                "Brand Identity",
+                "Web Design & Development",
+                "Logo & Mark System",
+                "Typography System",
+                "Iconography",
+                "Color Strategy"
+              ],
+              "gallery": [
+                "clients/evermore/image1.png",
+                "clients/evermore/image2.png",
+                "clients/evermore/image3.png",
+                "clients/evermore/image4.png",
+                "clients/evermore/image5.png",
+                "clients/evermore/image6.png"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 14,
+      "name": "Needle",
+      "slug": "needle",
+      "category": ["branding"],
+      "media": {
+        "logo": "clients/needle/logo.png",
+        "thumbnail": "clients/needle/thumbnail.png"
+      },
+      "metadata": {
+        "client": "Needle",
+        "why": "Boutique Branding",
+        "description": "We built a brand that highlights craftsmanship and detail at its core. A visual identity that feels refined, feminine, and quietly premium.",
+        "whatWeDid": [
+          {
+            "branding": {
+              "concept": "We developed a clean, detail focused visual language rooted in precision and elegance. Every element is designed to feel intentional, using typography, spacing, and subtle accents to reflect the care and craft behind each piece.",
+              "works": [
+                "Brand Identity",
+                "Web Design & Development",
+                "Logo & Mark System",
+                "Typography System",
+                "Visual System",
+                "Iconography",
+                "Color Strategy"
+              ],
+              "gallery": [
+                "clients/needle/image1.png",
+                "clients/needle/image2.png",
+                "clients/needle/image3.png",
+                "clients/needle/image4.png"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 15,
+      "name": "Holykicks",
+      "slug": "holykicks",
+      "category": ["branding", "web-design-and-development"],
+      "media": {
+        "logo": "clients/holykicks/logo.webp",
+        "thumbnail": "clients/holykicks/thumbnail.png"
+      },
+      "metadata": {
+        "client": "Holykicks",
+        "why": "Branding & Web Design",
+        "description": "We built a brand that highlights craftsmanship and detail at its core. A visual identity that feels refined, feminine, and quietly premium.",
+        "whatWeDid": [
+          {
+            "branding": {
+              "concept": "We developed a clean, detail focused visual language rooted in precision and elegance. Every element is designed to feel intentional, using typography, spacing, and subtle accents to reflect the care and craft behind each piece.",
+              "works": [
+                "Brand Identity",
+                "Web Design & Development",
+                "Visual System",
+                "Iconography",
+                "Color Strategy"
+              ],
+              "gallery": [
+                "clients/holykicks/image1.png",
+                "clients/holykicks/image2.png",
+                "clients/holykicks/image3.png"
+              ]
+            }
+          },
+          {
+            "web-design-and-development": {
+              "concept": "We developed a clean, detail focused visual language rooted in precision and elegance. Every element is designed to feel intentional, using typography, spacing, and subtle accents to reflect the care and craft behind each piece.",
+              "works": [
+                "Brand Identity",
+                "Web Design & Development",
+                "Visual System",
+                "Iconography",
+                "Color Strategy"
+              ],
+              "gallery": [
+                "clients/holykicks/image1.png",
+                "clients/holykicks/image2.png",
+                "clients/holykicks/image3.png"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "name": "Grocery Farms",
+      "slug": "grocery-farms",
+      "category": ["packaging-design"],
+      "media": {
+        "logo": "clients/grocery-farms/logo.png",
+        "thumbnail": "clients/grocery-farms/thumbnail.png"
+      },
+      "metadata": {
+        "client": "Grocery Farms",
+        "why": "Packaging Design",
+        "description": "We designed a packaging system that makes everyday staples feel clean, trustworthy, and easy to pick. A visual identity built for clarity, consistency, and strong shelf presence.",
+        "whatWeDid": [
+          {
+            "packaging-design": {
+              "concept": "We developed a structured packaging system focused on readability and product focus. Each pack highlights the ingredient clearly, supported by simple layouts, consistent typography, and subtle background elements to differentiate categories.",
+              "works": [
+                "Packaging Design",
+                "Label System",
+                "Visual System",
+                "Product Visualisation",
+                "Print Ready Artwork"
+              ],
+              "gallery": [
+                "clients/grocery-farms/image1.png",
+                "clients/grocery-farms/image2.png",
+                "clients/grocery-farms/image3.png",
+                "clients/grocery-farms/image4.png"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 17,
+      "name": "Desi Dharti",
+      "slug": "desi-dharti",
+      "category": ["packaging-design"],
+      "media": {
+        "logo": "clients/desi-dharti/logo.webp",
+        "thumbnail": "clients/desi-dharti/thumbnail.png"
+      },
+      "metadata": {
+        "client": "Desi Dharti",
+        "why": "Packaging Design",
+        "description": "We designed a packaging system that makes everyday staples feel clean, trustworthy, and easy to pick. A visual identity built for clarity, consistency, and strong shelf presence.",
+        "whatWeDid": [
+          {
+            "packaging-design": {
+              "concept": "We developed a structured packaging system focused on readability and product focus. Each pack highlights the ingredient clearly, supported by simple layouts, consistent typography, and subtle background elements to differentiate categories.",
+              "works": [
+                "Packaging Design",
+                "Label System",
+                "Visual System",
+                "Product Visualisation",
+                "Print Ready Artwork"
+              ],
+              "gallery": [
+                "clients/desi-dharti/image1.png",
+                "clients/desi-dharti/image2.png",
+                "clients/desi-dharti/image3.png",
+                "clients/desi-dharti/image4.png",
+                "clients/desi-dharti/image5.png",
+                "clients/desi-dharti/image6.png"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 18,
+      "name": "Nirani Sugar",
+      "slug": "nirani-sugar",
+      "category": ["packaging-design"],
+      "media": {
+        "logo": "clients/nirani-sugar/logo.png",
+        "thumbnail": "clients/nirani-sugar/thumbnail.png"
+      },
+      "metadata": {
+        "client": "Nirani Sugar",
+        "why": "Packaging Design & 3D Modelling",
+        "description": "We designed a packaging system that makes everyday staples feel clean, trustworthy, and easy to pick. A visual identity built for clarity, consistency, and strong shelf presence.",
+        "whatWeDid": [
+          {
+            "packaging-design": {
+              "concept": "We developed a structured packaging system focused on readability and product focus. Each pack highlights the ingredient clearly, supported by simple layouts, consistent typography, and subtle background elements to differentiate categories.",
+              "works": [
+                "Packaging Design",
+                "Label System",
+                "Visual System",
+                "Product Visualisation",
+                "Print Ready Artwork"
+              ],
+              "gallery": [
+                "clients/nirani-sugar/image1.png",
+                "clients/nirani-sugar/image2.png",
+                "clients/nirani-sugar/image3.png",
+                "clients/nirani-sugar/image4.png",
+                "clients/nirani-sugar/image5.png",
+                "clients/nirani-sugar/image6.png"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 19,
+      "name": "Pluto",
+      "slug": "pluto",
+      "category": ["packaging-design"],
+      "media": {
+        "logo": "clients/pluto/logo.png",
+        "thumbnail": "clients/pluto/thumbnail.png"
+      },
+      "metadata": {
+        "client": "Pluto",
+        "why": "Packaging Design",
+        "description": "We designed a packaging system that makes everyday staples feel clean, trustworthy, and easy to pick. A visual identity built for clarity, consistency, and strong shelf presence.",
+        "whatWeDid": [
+          {
+            "packaging-design": {
+              "concept": "We developed a structured packaging system focused on readability and product focus. Each pack highlights the ingredient clearly, supported by simple layouts, consistent typography, and subtle background elements to differentiate categories.",
+              "works": [
+                "Packaging Design",
+                "Label System",
+                "Visual System",
+                "Product Visualisation",
+                "Print Ready Artwork"
+              ],
+              "gallery": [
+                "clients/pluto/image1.png",
+                "clients/pluto/image2.png",
+                "clients/pluto/image3.png",
+                "clients/pluto/image4.png"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 20,
+      "name": "Indian Biere House",
+      "slug": "indian-biere-house",
+      "category": ["social-media"],
+      "media": {
+        "logo": "clients/indian-biere-house/logo.webp",
+        "thumbnail": "clients/indian-biere-house/thumbnail.png"
+      },
+      "metadata": {
+        "client": "Indian Biere House",
+        "why": "Branding & Visual Identity",
+        "description": "We created a cohesive brand identity for Indian Biere House, focusing on authenticity and local flavor.",
+        "whatWeDid": [
+          {
+            "social-media": {
+              "concept": "We developed a brand identity that reflects the local culture and the quality of the products, using earthy tones and traditional motifs.",
+              "works": [
+                "Brand Strategy",
+                "Logo Design",
+                "Visual System",
+                "Marketing Materials"
+              ],
+              "gallery": [
+                "clients/indian-biere-house/image1.webp",
+                "clients/indian-biere-house/image2.webp",
+                "clients/indian-biere-house/image3.webp",
+                "clients/indian-biere-house/image4.webp"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 999,
+      "name": "Coca-Cola",
+      "slug": "coca-cola",
+      "category": ["content-creation"],
+      "media": {
+        "logo": "clients/coca-cola/logo.png",
+        "thumbnail": "clients/coca-cola/thumbnail.png"
+      },
+      "metadata": {
+        "client": "Coca-Cola",
+        "why": "To create a cool campaign shoot",
+        "description": "Coca-Cola is a global brand that needs to maintain its iconic status while staying relevant to new generations. We brought it to life through vibrant visuals and emotional storytelling.",
+        "whatWeDid": [
+          {
+            "content-creation": {
+              "concept": "We crafted a campaign that celebrates moments of joy and connection, using Coca-Cola’s signature red and dynamic imagery to evoke feelings of happiness and togetherness.",
+              "works": [
+                "Art Direction",
+                "Graphic Design",
+                "Photography",
+                "Campaingn Shoot",
+                "Promotional"
+              ],
+              "gallery": [
+                "clients/coca-cola/image1.png",
+                "clients/coca-cola/image2.png",
+                "clients/coca-cola/image3.png",
+                "clients/coca-cola/image4.png",
+                "clients/coca-cola/image5.png",
+                "clients/coca-cola/image6.png"
+              ]
+            }
+          }
+        ]
+      }
     }
   ]
 }

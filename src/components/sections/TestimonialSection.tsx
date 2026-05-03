@@ -5,7 +5,9 @@ import { Box, Typography, Stack, IconButton } from "@mui/material";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import gsap from "gsap";
+import { usePathname } from "next/navigation";
 import {
+  refreshScrollAnimations,
   scrollFromBottom,
   scrollFromLeft,
   scrollFromRight,
@@ -50,6 +52,7 @@ const testimonials = [
 ];
 
 export default function TestimonialSection() {
+  const pathname = usePathname();
   const [active, setActive] = useState(0);
   const [animating, setAnimating] = useState(false);
 
@@ -63,27 +66,73 @@ export default function TestimonialSection() {
 
   // ── Scroll-triggered intro ──────────────────────────────────────────────────
   useEffect(() => {
-    scrollFromLeft(quoteIconRef.current, {
-      trigger: sectionRef.current,
-      start: "top 80%",
-      distance: 60,
-      duration: 1,
+    const trigger = sectionRef.current;
+    const animatedElements = [quoteIconRef.current, contentRef.current, navRef.current].filter(
+      Boolean,
+    ) as HTMLElement[];
+
+    if (animatedElements.length) {
+      gsap.set(animatedElements, { clearProps: "opacity,transform,filter" });
+    }
+
+    const tweens: Array<{
+      kill: () => void;
+      revert?: () => void;
+      scrollTrigger?: { kill: () => void };
+    }> = [];
+
+    if (quoteIconRef.current) {
+      tweens.push(
+        scrollFromLeft(quoteIconRef.current, {
+          trigger,
+          start: "top 80%",
+          distance: 60,
+          duration: 1,
+        }),
+      );
+    }
+
+    if (contentRef.current) {
+      tweens.push(
+        scrollFromBottom(contentRef.current, {
+          trigger,
+          start: "top 80%",
+          distance: 50,
+          duration: 0.9,
+          delay: 0.15,
+        }),
+      );
+    }
+
+    if (navRef.current) {
+      tweens.push(
+        scrollFromRight(navRef.current, {
+          trigger,
+          start: "top 80%",
+          distance: 40,
+          duration: 0.9,
+          delay: 0.2,
+        }),
+      );
+    }
+
+    requestAnimationFrame(() => {
+      refreshScrollAnimations();
     });
-    scrollFromBottom(contentRef.current, {
-      trigger: sectionRef.current,
-      start: "top 80%",
-      distance: 50,
-      duration: 0.9,
-      delay: 0.15,
-    });
-    scrollFromRight(navRef.current, {
-      trigger: sectionRef.current,
-      start: "top 80%",
-      distance: 40,
-      duration: 0.9,
-      delay: 0.2,
-    });
-  }, []);
+
+    return () => {
+      if (contentRef.current) {
+        gsap.killTweensOf(contentRef.current);
+        gsap.set(contentRef.current, { clearProps: "opacity,transform,filter" });
+      }
+
+      tweens.forEach((tween) => {
+        tween.scrollTrigger?.kill();
+        tween.revert?.();
+        tween.kill();
+      });
+    };
+  }, [pathname]);
 
   // ── Transition between testimonials ─────────────────────────────────────────
   const goTo = (next: number, direction: "left" | "right") => {

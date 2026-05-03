@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Box, Stack } from "@mui/material";
 import { useRouter } from "next/navigation";
 
@@ -60,7 +60,7 @@ export interface InteractiveSliderProps {
   logoMaxWidth?: ResponsivePx;
   /** Gap between logos — number (px) or responsive map. Default 72 */
   gap?: ResponsiveNum;
-  /** Whether clicking a logo navigates to /work/[slug] — default true */
+  /** Whether clicking a logo navigates to /works/[slug] — default true */
   navigateOnClick?: boolean;
 }
 
@@ -76,18 +76,53 @@ export default function InteractiveSlider({
   navigateOnClick = true,
 }: InteractiveSliderProps) {
   const router = useRouter();
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const [repeatCount, setRepeatCount] = useState(4);
 
   if (!items?.length) return null;
 
-  // Triple-duplicate — memoised so the array reference is stable across
-  // re-renders, preventing React from unmounting/remounting <img> nodes
-  // (which would fire a fresh network request on every render).
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const track = useMemo(() => [...items, ...items, ...items], [items]);
+  // Repeat the item set enough times so the reset occurs outside the
+  // visible viewport and the loop feels truly infinite.
+  const track = useMemo(
+    () => Array.from({ length: repeatCount }, () => items).flat(),
+    [items, repeatCount]
+  );
 
   const keyframeName =
     direction === "left" ? "is-slide-left" : "is-slide-right";
+  const trackShift = `calc(-100% / ${repeatCount})`;
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    const trackEl = trackRef.current;
+    if (!wrapper || !trackEl) return;
+
+    const calculateRepeatCount = () => {
+      const wrapperWidth = wrapper.clientWidth || window.innerWidth;
+      const copyWidth = trackEl.scrollWidth / repeatCount;
+      if (!copyWidth) return;
+
+      const requiredCopies = Math.max(
+        2,
+        Math.ceil(wrapperWidth / copyWidth) + 1
+      );
+      if (requiredCopies !== repeatCount) {
+        setRepeatCount(requiredCopies);
+      }
+    };
+
+    const resizeObserver = new ResizeObserver(calculateRepeatCount);
+    resizeObserver.observe(wrapper);
+    resizeObserver.observe(trackEl);
+    window.addEventListener("load", calculateRepeatCount);
+    requestAnimationFrame(calculateRepeatCount);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("load", calculateRepeatCount);
+    };
+  }, [repeatCount, items, gap, logoHeight, logoMaxWidth]);
 
   return (
     <Box
@@ -101,10 +136,10 @@ export default function InteractiveSlider({
         // Keyframes injected via sx (MUI injects into <style>)
         "@keyframes is-slide-left": {
           "0%": { transform: "translateX(0)" },
-          "100%": { transform: "translateX(calc(-100% / 3))" },
+          "100%": { transform: `translateX(${trackShift})` },
         },
         "@keyframes is-slide-right": {
-          "0%": { transform: "translateX(calc(-100% / 3))" },
+          "0%": { transform: `translateX(${trackShift})` },
           "100%": { transform: "translateX(0)" },
         },
       }}
@@ -136,7 +171,7 @@ export default function InteractiveSlider({
             logoMaxWidth={logoMaxWidth}
             onClick={
               navigateOnClick
-                ? () => router.push(`/work/${item.slug}`)
+                ? () => router.push(`/works/${item.slug}`)
                 : undefined
             }
           />

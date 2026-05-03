@@ -12,6 +12,10 @@ import {
 } from "@mui/material";
 import gsap from "gsap";
 
+type WindowWithNavbarIntro = Window & {
+  __navbarIntroDone?: boolean;
+};
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
@@ -21,18 +25,33 @@ const Navbar = () => {
   const burgerRef = useRef<HTMLElement>(null);
 
   const navLinks = [
-    { label: "Work", href: "/work" },
+    { label: "Work", href: "/works" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact", filled: true },
   ];
 
   // Pre-hide all elements before first paint — prevents flash of visible content
   useLayoutEffect(() => {
-    gsap.set(appBarRef.current, { y: "-100%" });
-    gsap.set(logoRef.current, { opacity: 0, y: 16 });
+    const win = window as WindowWithNavbarIntro;
     const linkEls = linksRef.current
       ? Array.from(linksRef.current.children)
       : [];
+
+    // Navbar intro runs once per full page load. If it remounts during routing,
+    // render in final state immediately.
+    if (win.__navbarIntroDone) {
+      gsap.set(appBarRef.current, { y: "0%" });
+      gsap.set(logoRef.current, { opacity: 1, y: 0, clearProps: "transform" });
+      gsap.set(linkEls.length ? linkEls : [burgerRef.current], {
+        opacity: 1,
+        y: 0,
+        clearProps: "transform",
+      });
+      return;
+    }
+
+    gsap.set(appBarRef.current, { y: "-100%" });
+    gsap.set(logoRef.current, { opacity: 0, y: 16 });
     gsap.set(linkEls.length ? linkEls : [burgerRef.current], {
       opacity: 1,
       y: 60,
@@ -40,9 +59,14 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
+    const win = window as WindowWithNavbarIntro;
     const linkEls = linksRef.current
       ? Array.from(linksRef.current.children)
       : [];
+
+    if (win.__navbarIntroDone) {
+      return;
+    }
 
     const tl = gsap.timeline();
 
@@ -74,15 +98,17 @@ const Navbar = () => {
           ease: "bounce.in",
           stagger: 0.1,
           clearProps: "opacity,y,transform",
-          // Signal hero to start its intro — fires when first link starts animating
-          onStart() {
-            (window as Window & { __navbarReady?: boolean }).__navbarReady =
-              true;
-            window.dispatchEvent(new Event("navbar:ready"));
-          },
         },
-        "-=.1",
+        "-=.3",
       );
+
+    tl.eventCallback("onComplete", () => {
+      win.__navbarIntroDone = true;
+    });
+
+    return () => {
+      tl.kill();
+    };
   }, []);
 
   return (

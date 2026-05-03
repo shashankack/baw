@@ -5,11 +5,13 @@ import { Box, IconButton, Stack, Typography } from "@mui/material";
 import InteractiveSlider from "./InteractiveSlider";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import { usePathname } from "next/navigation";
 import { ServiceLink } from "./sections/ClientsAndServicesSection";
 import clients from "@/data/clients.json";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
+  refreshScrollAnimations,
   scrollFromLeft,
   scrollFromRight,
   scrollFromBottom,
@@ -25,6 +27,13 @@ if (typeof window !== "undefined") {
 }
 
 const Footer = () => {
+  const pathname = usePathname();
+  const sliderItems = clients.clients.map((client) => ({
+    name: client.name,
+    slug: client.slug,
+    logo: client.media.logo,
+  }));
+
   const quickLinks = [
     [
       { name: "WORK", slug: "work" },
@@ -61,15 +70,38 @@ const Footer = () => {
 
   useEffect(() => {
     const footer = footerRef.current;
+    const animatedElements = [
+      headingRef.current,
+      descRef.current,
+      leftColRef.current,
+      rightColRef.current,
+      contactRef.current,
+      monogramRef.current,
+      logoRef.current,
+    ].filter(Boolean) as HTMLElement[];
+
+    if (animatedElements.length) {
+      gsap.set(animatedElements, { clearProps: "opacity,transform,filter" });
+    }
+
+    const tweens: Array<{
+      kill: () => void;
+      revert?: () => void;
+      scrollTrigger?: { kill: () => void };
+    }> = [];
 
     // ── Intro animations ───────────────────────────────────────────────
-    scrollFromLeft(headingRef.current, {
-      trigger: footer,
-      start: "top 88%",
-      duration: 0.9,
-    });
+    if (headingRef.current) {
+      tweens.push(
+        scrollFromLeft(headingRef.current, {
+          trigger: footer,
+          start: "top 88%",
+          duration: 0.9,
+        }),
+      );
+    }
 
-    scrollSplitTextBlur(descRef.current, {
+    const descSplit = scrollSplitTextBlur(descRef.current, {
       trigger: footer,
       start: "top 85%",
       duration: 0.6,
@@ -77,51 +109,86 @@ const Footer = () => {
       delay: 0.1,
     });
 
-    scrollFromLeft(leftColRef.current, {
-      trigger: footer,
-      start: "top 75%",
-      duration: 0.85,
-      distance: 50,
-    });
+    if (leftColRef.current) {
+      tweens.push(
+        scrollFromLeft(leftColRef.current, {
+          trigger: footer,
+          start: "top 75%",
+          duration: 0.85,
+          distance: 50,
+        }),
+      );
+    }
 
-    scrollFromRight(rightColRef.current, {
-      trigger: footer,
-      start: "top 75%",
-      duration: 0.85,
-      distance: 50,
-    });
+    if (rightColRef.current) {
+      tweens.push(
+        scrollFromRight(rightColRef.current, {
+          trigger: footer,
+          start: "top 75%",
+          duration: 0.85,
+          distance: 50,
+        }),
+      );
+    }
 
-    scrollFromBottom(contactRef.current, {
-      trigger: contactRef.current,
-      start: "top 90%",
-      duration: 0.8,
-      distance: 40,
-    });
+    if (contactRef.current) {
+      tweens.push(
+        scrollFromBottom(contactRef.current, {
+          trigger: contactRef.current,
+          start: "top 90%",
+          duration: 0.8,
+          distance: 40,
+        }),
+      );
+    }
 
-    scrollFromBottom(monogramRef.current, {
-      trigger: monogramRef.current,
-      start: "top 100%",
-      duration: 0.7,
-      distance: 30,
-      delay: 0.1,
-    });
+    if (monogramRef.current) {
+      tweens.push(
+        scrollFromBottom(monogramRef.current, {
+          trigger: monogramRef.current,
+          start: "top 100%",
+          duration: 0.7,
+          distance: 30,
+          delay: 0.1,
+        }),
+      );
+    }
 
     // ── Scrub: logo parallax ──────────────────────────────────────
     // Logo rises upward as you scroll past (adds to the existing bottom: -80 offset)
-    gsap.to(logoRef.current, {
-      y: -50,
-      ease: "none",
-      scrollTrigger: {
-        trigger: logoRef.current,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: 1,
-      },
+    if (logoRef.current) {
+      tweens.push(
+        gsap.to(logoRef.current, {
+          y: -50,
+          ease: "none",
+          scrollTrigger: {
+            trigger: logoRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1,
+          },
+        }),
+      );
+    }
+
+    requestAnimationFrame(() => {
+      refreshScrollAnimations();
     });
-  }, []);
+
+    return () => {
+      descSplit?.revert();
+      tweens.forEach((tween) => {
+        tween.scrollTrigger?.kill();
+        tween.revert?.();
+        tween.kill();
+      });
+    };
+  }, [pathname]);
 
   return (
     <Stack
+      overflow={"hidden"}
+      bgcolor="background.default"
       ref={footerRef}
       mt={{ xs: 6, md: 10 }}
       borderBottom="1px solid"
@@ -139,13 +206,13 @@ const Footer = () => {
           ref={descRef as React.Ref<HTMLElement>}
           variant="body1"
           fontSize={{ xs: ".8rem", md: "1rem" }}
-          width={{ xs: "100%", md: "50%" }}
+          width={{ xs: "100%", md: "84ch" }}
         >
           Over the years we&rsquo;ve had the privilege to work with many great
           people and companies in both design and production.
         </Typography>
         <InteractiveSlider
-          items={clients.clients}
+          items={sliderItems}
           speed={10}
           logoHeight={{ xs: 100, md: 120 }}
           logoMaxWidth={{ xs: 100, md: 120 }}
@@ -384,7 +451,7 @@ const Footer = () => {
         />
       </Box>
 
-      <Box height={{ xs: 60, md: 80 }} />
+      <Box height={{ xs: 40, md: 80 }} />
       {/* Border that bleeds past the wrapper's 30px margin to the viewport edge */}
       <Box
         ref={monogramRef}
@@ -393,7 +460,7 @@ const Footer = () => {
           bottom: 0,
           left: { xs: 0, md: "-30px" },
           right: { xs: 0, md: "-30px" },
-          height: { xs: 60, md: 80 },
+          height: { xs: 40, md: 80 },
           borderTop: "1px solid",
           borderColor: "primary.main",
           pointerEvents: "none",
@@ -403,7 +470,11 @@ const Footer = () => {
           px: { xs: 2, md: 7 },
         }}
       >
-        <Box component="img" src="/media/assets/blue-monogram.png" width={40} />
+        <Box
+          component="img"
+          src="/media/assets/blue-monogram.png"
+          width={{ xs: 20, md: 40 }}
+        />
         <Typography variant="body1" fontSize={{ xs: ".6rem", md: "1rem" }}>
           Created by BAW-STUDIO
         </Typography>
