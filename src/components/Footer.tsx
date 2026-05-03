@@ -211,13 +211,15 @@ const Footer = () => {
           Over the years we&rsquo;ve had the privilege to work with many great
           people and companies in both design and production.
         </Typography>
-        <InteractiveSlider
-          items={sliderItems}
-          speed={10}
-          logoHeight={{ xs: 100, md: 120 }}
-          logoMaxWidth={{ xs: 100, md: 120 }}
-          gap={{ xs: 10, md: 72 }}
-        />
+        <Box py={{ xs: 2, md: 4 }}>
+          <InteractiveSlider
+            items={sliderItems}
+            speed={30}
+            logoHeight={{ xs: 80, md: 120 }}
+            logoMaxWidth={{ xs: 80, md: 120 }}
+            gap={{ xs: 30, md: 72 }}
+          />
+        </Box>
       </Stack>
 
       <Stack

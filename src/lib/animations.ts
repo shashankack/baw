@@ -8,6 +8,7 @@ if (typeof window !== "undefined") {
 
 const splitInstanceMap = new WeakMap<HTMLElement, SplitType>();
 const splitTweenMap = new WeakMap<HTMLElement, gsap.core.Tween>();
+let refreshRafId: number | null = null;
 
 const cleanupSplitAnimation = (target: HTMLElement) => {
   const existingTween = splitTweenMap.get(target);
@@ -51,7 +52,14 @@ export interface ScrollAnimationProps extends AnimationProps {
 /** Force ScrollTrigger to recalculate positions after route/layout changes. */
 export const refreshScrollAnimations = () => {
   if (typeof window === "undefined") return;
-  ScrollTrigger.refresh();
+  if (refreshRafId !== null) {
+    cancelAnimationFrame(refreshRafId);
+  }
+
+  refreshRafId = requestAnimationFrame(() => {
+    refreshRafId = null;
+    ScrollTrigger.refresh();
+  });
 };
 
 // ─── Base animations ─────────────────────────────────────────────────────────
